@@ -21,12 +21,12 @@ export class CreateEndpointComponent implements OnInit {
      */
     @Input() public preselectedTags?: number[] = [];
 
-    public availableProtocols: string[] = ["udpv4"];
+    public availableProtocols: string[] = ["udpv4", "udpv6"];
 
     /**
      * Form including Engine details
      */
-    public endpointForm: { name: string; address: string; protocol: "udpv4" } = {
+    public endpointForm: { name: string; address: string; protocol: "udpv4" | "udpv6" } = {
         name: "",
         address: "",
         protocol: "udpv4",

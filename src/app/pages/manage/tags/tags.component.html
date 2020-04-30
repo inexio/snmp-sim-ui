@@ -24,20 +24,20 @@
                 <p class="description">"{{ panel.tag.meta.description }}"</p>
 
                 <p>Tag-ID: {{ panel.tag.id }}</p>
-                <p>Creation date: 04-03-2020 (2 days ago)</p>
+                <!-- <p>Creation date: 04-03-2020 (2 days ago)</p> -->
                 <p>
                     Used by: {{ panel.tag.labs.length }} Labs, {{ panel.tag.agents.length }} Agents,
                     {{ panel.tag.engines.length }} Engines, {{ panel.tag.endpoints.length }} Endpoints,
                     {{ panel.tag.users.length }} Users
                 </p>
 
-                <div style="margin-top: 15px">
+                <!-- <div style="margin-top: 15px">
                     <nz-select [(ngModel)]="tags[i].meta.color" nzPlaceHolder="Tag Color" style="width: 200px;">
                         <nz-option *ngFor="let color of tagColors" [nzValue]="color" [nzLabel]="color"></nz-option>
                     </nz-select>
 
                     <nz-tag [nzColor]="tags[i].meta.color" style="margin-left: 10px;">{{ panel.tag.name }}</nz-tag>
-                </div>
+                </div> -->
 
                 <div style="margin-top: 15px">
                     <button nz-button nzType="danger" (click)="deleteTag(panel.tag.id)">Delete Tag</button>

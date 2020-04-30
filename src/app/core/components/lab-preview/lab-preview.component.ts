@@ -147,17 +147,17 @@ export class LabPreviewComponent implements OnInit {
      * Opens a modal making the user confirm deletion of Lab
      * @param lab Lab object to delete
      */
-    public deleteLab(lab: Lab): void {
+    public deleteLab(): void {
         // Show confirmation dialog
         this.modal.confirm({
             nzTitle: "Confirm Lab Deletion",
-            nzContent: `Are you sure you want to delete the lab "${lab.name}"? If you delete the tag, it will be removed from all connected Labs, Agents, Engines, Endpoints, and Users.`,
+            nzContent: `Are you sure you want to delete the lab "${this.lab.name}"? If you delete the tag, it will be removed from all connected Labs, Agents, Engines, Endpoints, and Users.`,
             nzOkText: "Delete",
             nzOkType: "danger",
             nzOnOk: () => {
                 const pendingMessage = this.message.loading("Deleting Lab...").messageId;
 
-                this.management.deleteLab(lab.id).subscribe({
+                this.management.deleteLab(this.lab.id).subscribe({
                     next: () => {
                         this.message.remove(pendingMessage);
                         this.message.create("success", "Lab deleted!");

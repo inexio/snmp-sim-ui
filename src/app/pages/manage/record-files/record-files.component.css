@@ -8,10 +8,6 @@
     padding: 10px 0 0 5px;
 }
 
-:host ::ng-deep .ant-tree li span.ant-tree-switcher .ant-tree-switcher-icon {
-    margin-top: 5px;
-}
-
 .custom-node {
     cursor: pointer;
     line-height: 24px;

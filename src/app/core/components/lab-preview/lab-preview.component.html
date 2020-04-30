@@ -40,20 +40,20 @@
                     {{ tag.name }}
                 </nz-tag>
             </p>
-            <p>Uptime: 2 hours</p>
+            <p>Status: {{ lab.power === "on" ? "Running" : "Paused" }}</p>
             <p>Agents: {{ lab.agents.length }}</p>
-            <p>Metrics:</p>
+            <!-- <p>Metrics:</p> -->
         </div>
 
         <!-- Metrics chart -->
-        <div style="margin-top: 20px;">
+        <!-- <div style="margin-top: 20px;">
             <apx-chart
                 [series]="chartOptions.series"
                 [chart]="chartOptions.chart"
                 [xaxis]="chartOptions.xaxis"
                 [yaxis]="chartOptions.yaxis"
             ></apx-chart>
-        </div>
+        </div> -->
     </nz-card>
 
     <!-- Actions -->

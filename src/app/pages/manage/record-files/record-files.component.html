@@ -40,18 +40,9 @@
     <ng-template #nzTreeTemplate let-node>
         <span class="custom-node">
             <!-- If node is folder -->
-            <span *ngIf="!node.title.includes('.snmprec')" class="branch">
-                <i
-                    nz-icon
-                    nzTheme="fill"
-                    [nzType]="node.isExpanded ? 'folder-open' : 'folder'"
-                    (click)="openFolder(node)"
-                ></i>
-                <span
-                    class="folder-name"
-                    [innerHtml]="getHighlightedString(node.title) + '/'"
-                    (click)="openFolder(node)"
-                ></span>
+            <span *ngIf="!node.title.includes('.snmprec')" class="branch" (click)="openFolder(node)">
+                <i nz-icon nzTheme="fill" [nzType]="node.isExpanded ? 'folder-open' : 'folder'"></i>
+                <span class="folder-name" [innerHtml]="getHighlightedString(node.title) + '/'"></span>
                 <nz-button-group class="file-controls">
                     <button nz-button nzSize="small" (click)="openUploadModal(node, uploadFooter)">
                         <i nz-icon nzType="upload"></i>

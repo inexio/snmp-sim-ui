@@ -80,13 +80,13 @@ span.highlighted {
     top: 5px;
 } */
 
-/* .ant-steps-item-icon > .ant-steps-icon {
+.ant-steps-item-icon > .ant-steps-icon {
     line-height: 24px;
-} */
+}
 
-/* .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
     top: 5px;
-} */
+}
 
 span.ant-input-suffix i {
     margin-top: 3px;
@@ -99,4 +99,9 @@ span.ant-select-selection-item-remove i {
 .ant-layout-sider-trigger {
     background-color: #ffffff;
     color: #000000a6;
+}
+
+.ant-tree .ant-tree-switcher {
+    display: flex;
+    align-items: center;
 }
