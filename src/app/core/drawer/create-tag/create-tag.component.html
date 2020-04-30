@@ -1,0 +1,30 @@
+<h4>Tag Preview</h4>
+<nz-tag [nzColor]="color" style="margin-bottom: 20px;">{{ name || "Tag Preview" }}</nz-tag>
+
+<h4>Tag Details</h4>
+<form #form="ngForm">
+    <input nz-input placeholder="Tag Name" [(ngModel)]="name" name="name" />
+
+    <input
+        nz-input
+        placeholder="Tag Description"
+        [(ngModel)]="description"
+        name="description"
+        style="margin-top: 15px;"
+    />
+
+    <div style="margin-top: 15px">
+        <nz-select [(ngModel)]="color" nzPlaceHolder="Tag Color" name="color" style="width: 200px;">
+            <nz-option *ngFor="let tagColor of tagColors" [nzValue]="tagColor" [nzLabel]="tagColor"></nz-option>
+        </nz-select>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div class="buttons">
+        <button nz-button (click)="cancel()">Cancel</button>
+        <button nz-button nzType="primary" [nzLoading]="createTagStatus === 'pending'" (click)="createTag()">
+            Create Tag
+        </button>
+    </div>
+</form>

@@ -1,0 +1,49 @@
+<div>
+    <h4>Lab Name</h4>
+    <input nz-input placeholder="Aperture Laboratories" [(ngModel)]="labForm.name" />
+
+    <ng-container *ngIf="selectedTag">
+        <h4 style="margin-top: 15px;">Attached Tag</h4>
+        <nz-tag
+            nz-tooltip
+            [nzTooltipTitle]="selectedTag.meta ? selectedTag.meta.description : ''"
+            [nzColor]="selectedTag.meta ? selectedTag.meta.color : 'blue'"
+            (click)="deselectTag(selectedTag)"
+        >
+            {{ selectedTag.name }}
+        </nz-tag>
+
+        <h4 style="margin-top: 15px;">Available Tags</h4>
+        <nz-alert
+            *ngIf="selectedTag"
+            nzType="warning"
+            nzMessage="You can attach more Tags after the lab was created."
+            nzShowIcon
+        ></nz-alert>
+    </ng-container>
+
+    <ng-container *ngIf="!selectedTag">
+        <h4 style="margin-top: 15px;">Available Tags</h4>
+        <nz-tag
+            nz-tooltip
+            *ngFor="let tag of availableTags"
+            [nzTooltipTitle]="tag.meta ? tag.meta.description : ''"
+            [nzColor]="tag.meta ? tag.meta.color : 'blue'"
+            (click)="selectTag(tag)"
+        >
+            {{ tag.name }}
+        </nz-tag>
+
+        <!-- Create new Tag -->
+        <nz-tag class="add-tag" (click)="createNewTag()"><i nz-icon nzType="plus"></i> new</nz-tag>
+    </ng-container>
+
+    <nz-divider></nz-divider>
+
+    <div class="buttons">
+        <button nz-button (click)="cancel()">Cancel</button>
+        <button nz-button nzType="primary" [nzLoading]="createLabStatus === 'pending'" (click)="createLab()">
+            Create Lab
+        </button>
+    </div>
+</div>

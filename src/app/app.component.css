@@ -1,0 +1,126 @@
+:host {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sidebar */
+nz-layout.sidebar {
+    height: 100vh;
+}
+
+nz-sider.menu-sidebar {
+    overflow: auto;
+    height: 100%;
+    position: fixed;
+    left: 0;
+}
+
+nz-layout.light > nz-sider.menu-sidebar {
+    background-color: #ffffff;
+}
+
+nz-sider.menu-sidebar div.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+nz-sider.menu-sidebar div.sidebar-content > div.sidebar-items {
+    overflow-y: scroll;
+    margin-bottom: 48px;
+}
+
+/* Sidebar Controller */
+span.header-trigger {
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s, padding 0s;
+}
+
+span.header-trigger > i.trigger:hover {
+    color: #1890ff;
+}
+
+/* Sidebar Content */
+.sidebar-logo {
+    width: 100%;
+    height: 64px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.sidebar-logo i {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    vertical-align: middle;
+    font-size: 32px;
+}
+
+.sidebar-logo h1 {
+    display: inline-block;
+    margin: 0 0 0 20px;
+    font-size: 14px;
+    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+}
+
+nz-layout.light .sidebar-logo {
+    background-color: #ffffff;
+}
+
+nz-layout.dark .sidebar-logo {
+    background-color: #001529;
+}
+
+nz-layout.dark .sidebar-logo i,
+nz-layout.dark .sidebar-logo h1 {
+    color: #ffffff;
+}
+
+nz-layout.light .ant-layout-sider-trigger {
+    background-color: #ffffff;
+}
+
+/* Header */
+nz-header {
+    position: fixed;
+    padding: 0;
+    width: 100%;
+    z-index: 2;
+    transition: all 0.2s ease;
+}
+
+nz-header > div.app-header {
+    position: relative;
+    height: 64px;
+    padding: 0;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+}
+
+nz-layout.light nz-header > div.app-header {
+    background-color: #ffffff;
+}
+
+nz-header > div.app-header > h1 {
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 256px;
+    transition: all 0.2s;
+}
+
+nz-content {
+    margin: 24px 24px 0;
+    overflow: initial;
+}

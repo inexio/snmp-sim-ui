@@ -1,0 +1,20 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Engines</b>
+        <button nz-button (click)="openCreateEngineDrawer()" nzSize="small" nzType="primary" style="margin-left: 20px;">
+            Create New Engine
+        </button>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="engines">
+    <app-engine-preview
+        *ngFor="let engine of engines"
+        [engine]="engine"
+        (delete)="updateEngines()"
+    ></app-engine-preview>
+</div>

@@ -1,0 +1,13 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Metrics
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Processes</b>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="processes">
+    <app-process-preview *ngFor="let process of processes" [process]="process"></app-process-preview>
+</div>

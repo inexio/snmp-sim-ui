@@ -1,0 +1,16 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Agents</b>
+        <button nz-button (click)="openCreateAgentDrawer()" nzSize="small" nzType="primary" style="margin-left: 20px;">
+            Create New Agent
+        </button>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="agents">
+    <app-agent-preview *ngFor="let agent of agents" [agent]="agent" (delete)="updateAgents()"></app-agent-preview>
+</div>

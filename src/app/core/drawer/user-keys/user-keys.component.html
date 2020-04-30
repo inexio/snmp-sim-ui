@@ -1,0 +1,25 @@
+<div>
+    <h4>Auth Protocol</h4>
+    <p>{{ user.auth_proto === "NONE" ? "None" : user.auth_proto }}</p>
+
+    <h4 *ngIf="user.auth_key" style="margin-top: 15px;">Auth Key</h4>
+    <div *ngIf="user.auth_key" class="code" style="margin: 5px 0;">
+        <button (click)="copyToClipboard(user.auth_key)" nz-button nzSize="small" nzType="primary">
+            <i nz-icon nzType="copy" nzTheme="outline"></i>
+        </button>
+
+        {{ user.auth_key }}
+    </div>
+
+    <h4 style="margin-top: 15px;">Priv. Protocol</h4>
+    <p>{{ user.priv_proto === "NONE" ? "None" : user.priv_proto }}</p>
+
+    <h4 *ngIf="user.priv_key" style="margin-top: 15px;">Priv. Key</h4>
+    <div *ngIf="user.priv_key" class="code" style="margin: 5px 0;">
+        <button (click)="copyToClipboard(user.priv_key)" nz-button nzSize="small" nzType="primary">
+            <i nz-icon nzType="copy" nzTheme="outline"></i>
+        </button>
+
+        {{ user.priv_key }}
+    </div>
+</div>

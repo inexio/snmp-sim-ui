@@ -1,0 +1,33 @@
+div.process {
+    width: 500px;
+    margin-bottom: 20px;
+    padding: 3px;
+}
+
+div.process h3 {
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+div.body {
+    margin-left: 0;
+    margin-top: 8px;
+}
+
+div.body > p {
+    margin: 0;
+}
+
+div.code {
+    position: relative;
+}
+
+div.code > button {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}

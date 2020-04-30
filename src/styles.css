@@ -1,0 +1,102 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+button,
+input {
+    -webkit-app-region: no-drag;
+}
+
+*:focus {
+    outline: none;
+}
+
+div.app-loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+div.inner-content {
+    padding: 35px;
+    background: #fff;
+    min-height: calc(100% - 64px);
+    /* margin-top: 64px; */
+}
+
+nz-breadcrumb {
+    margin-bottom: 24px !important;
+    margin-top: 64px !important;
+}
+
+span.code {
+    border: 1px solid #d9d9d9;
+    margin-top: 5px;
+    display: inline-block;
+    padding: 0 3px;
+    background-color: #f3f3f3;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+div.code {
+    padding: 5px 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-family: monospace;
+    width: 100%;
+    margin-top: 10px;
+    overflow-wrap: break-word;
+    border: 1px solid #d5d5d5;
+}
+
+span.highlighted {
+    color: #f5222d;
+}
+
+/* Custom scroll bar */
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+/* Fix */
+
+.ant-collapse-borderless {
+    background-color: transparent;
+    background: transparent;
+}
+
+.ant-upload.ant-upload-drag {
+    height: 100px;
+}
+
+/* .ant-select-selection--multiple .ant-select-selection__choice__remove {
+    top: 5px;
+} */
+
+/* .ant-steps-item-icon > .ant-steps-icon {
+    line-height: 24px;
+} */
+
+/* .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+    top: 5px;
+} */
+
+span.ant-input-suffix i {
+    margin-top: 3px;
+}
+
+span.ant-select-selection-item-remove i {
+    margin-top: 7px;
+}
+
+.ant-layout-sider-trigger {
+    background-color: #ffffff;
+    color: #000000a6;
+}

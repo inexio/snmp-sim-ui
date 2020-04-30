@@ -1,0 +1,245 @@
+<div class="container" style="-webkit-app-region: drag;">
+    <form #form="ngForm" class="main" style="-webkit-app-region: no-drag;">
+        <!-- Welcome message -->
+        <div *ngIf="currentStep === 'welcome'">
+            <h1 class="title">Welcome! 👋</h1>
+            <p class="description">
+                Thank you for using the SNMP Simulator. Please provide some information about the host you want to
+                manage.
+            </p>
+
+            <div style="display: flex; justify-content: space-around;">
+                <button nz-button nzType="primary" (click)="goTo('management')">Get Started</button>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div *ngIf="currentStep === 'success'">
+            <h1 class="title">Success! 🎉</h1>
+            <p class="description" style="margin-bottom: 0;">
+                The Setup was successful! You will be redirected in a few seconds.
+            </p>
+        </div>
+
+        <!-- Show loading skeleton while Connection is being retrieved -->
+        <nz-skeleton [nzActive]="true" *ngIf="currentStep === 'loading'"></nz-skeleton>
+
+        <ng-container>
+            <!-- Management API Form -->
+            <div *ngIf="currentStep === 'management'">
+                <h1 style="text-align: center;">Management API</h1>
+                <p class="description">
+                    Please fill out this form with information about the Management API.
+                </p>
+
+                <!-- Select Protocol -->
+                <h3 stsyle="margin-top: 10px;">Protocol</h3>
+                <nz-select name="protocol" [(ngModel)]="managementConnection.protocol" nzPlaceHolder="Protocol">
+                    <nz-option nzValue="https" nzLabel="HTTPS"></nz-option>
+                    <nz-option nzValue="http" nzLabel="HTTP"></nz-option>
+                </nz-select>
+
+                <!-- Address -->
+                <h3 style="margin-top: 15px;">Address</h3>
+                <nz-input-group nzCompact style="display: flex;">
+                    <div nz-col style="width: 100%;">
+                        <input
+                            nz-input
+                            placeholder="Address"
+                            [(ngModel)]="managementConnection.address"
+                            name="address"
+                        />
+                    </div>
+
+                    <div nz-col style="margin-left: 10px;">
+                        <input nz-input placeholder="Port" [(ngModel)]="managementConnection.port" name="metricsPort" />
+                    </div>
+                </nz-input-group>
+
+                <!-- Request authentication switch -->
+                <h3 style="margin-top: 15px;">Authentication</h3>
+                <label
+                    nz-checkbox
+                    [(ngModel)]="managementConnection.authentication.enabled"
+                    name="managementAuthenticationEnabled"
+                    >Enabled
+                </label>
+
+                <div *ngIf="managementConnection.authentication.enabled" style="margin-top: 15px;">
+                    <nz-alert
+                        nzType="info"
+                        nzMessage="At the moment only Basic authentication is supported."
+                    ></nz-alert>
+
+                    <nz-input-group nzCompact style="display: flex; margin-top: 15px;">
+                        <!-- Username -->
+                        <div nz-col style="width: 50%;">
+                            <input
+                                nz-input
+                                placeholder="Username"
+                                [(ngModel)]="managementConnection.authentication.username"
+                                name="username"
+                            />
+                        </div>
+
+                        <!-- Password -->
+                        <nz-input-group
+                            [nzSuffix]="suffixTemplate"
+                            style="width: 50%; height: 32px; margin-left: 10px;"
+                        >
+                            <input
+                                [type]="passwordVisible ? 'text' : 'password'"
+                                nz-input
+                                placeholder="Password"
+                                [(ngModel)]="managementConnection.authentication.password"
+                                name="password"
+                                style="border-radius: 4px;"
+                            />
+
+                            <ng-template #suffixTemplate>
+                                <i
+                                    nz-icon
+                                    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"
+                                    style="cursor: pointer;"
+                                ></i>
+                            </ng-template>
+                        </nz-input-group>
+                    </nz-input-group>
+                </div>
+
+                <nz-divider></nz-divider>
+
+                <button nz-button nzType="primary" (click)="goTo('metrics')" style="width: 100%;">
+                    Continue
+                </button>
+            </div>
+
+            <!-- Metrics API Form -->
+            <div *ngIf="currentStep === 'metrics'">
+                <h1 style="text-align: center;">Metrics API</h1>
+                <p class="description">
+                    Please fill out this form with information about the Metrics API.
+                </p>
+
+                <!-- Select Protocol -->
+                <h3>Protocol</h3>
+                <nz-select name="metricsProtocol" [(ngModel)]="metricsConnection.protocol" nzPlaceHolder="Protocol">
+                    <nz-option nzValue="https" nzLabel="HTTPS"></nz-option>
+                    <nz-option nzValue="http" nzLabel="HTTP"></nz-option>
+                </nz-select>
+
+                <!-- Address -->
+                <h3 style="margin-top: 15px;">Address</h3>
+                <nz-input-group nzCompact style="display: flex;">
+                    <div nz-col style="width: 100%;">
+                        <input
+                            nz-input
+                            placeholder="Address"
+                            [(ngModel)]="metricsConnection.address"
+                            name="metricsAddress"
+                        />
+                    </div>
+
+                    <div nz-col style="margin-left: 10px;">
+                        <input nz-input placeholder="Port" [(ngModel)]="metricsConnection.port" name="metricsPort" />
+                    </div>
+                </nz-input-group>
+
+                <!-- Request authentication switch -->
+                <h3 style="margin-top: 15px;">Authentication</h3>
+                <label
+                    nz-checkbox
+                    [(ngModel)]="metricsConnection.authentication.enabled"
+                    name="metricsAuthenticationEnabled"
+                    >Enabled
+                </label>
+
+                <div *ngIf="metricsConnection.authentication.enabled" style="margin-top: 15px;">
+                    <nz-alert
+                        nzType="info"
+                        nzMessage="At the moment only Basic authentication is supported."
+                    ></nz-alert>
+
+                    <nz-input-group nzCompact style="display: flex; margin-top: 15px;">
+                        <!-- Username -->
+                        <div nz-col style="width: 50%;">
+                            <input
+                                nz-input
+                                placeholder="Username"
+                                [(ngModel)]="metricsConnection.authentication.username"
+                                name="metricsUsername"
+                            />
+                        </div>
+
+                        <!-- Password -->
+                        <nz-input-group
+                            [nzSuffix]="suffixTemplate"
+                            style="width: 50%; height: 32px; margin-left: 10px;"
+                        >
+                            <input
+                                [type]="passwordVisible ? 'text' : 'password'"
+                                nz-input
+                                placeholder="Password"
+                                [(ngModel)]="metricsConnection.authentication.password"
+                                name="metricsPassword"
+                                style="border-radius: 4px;"
+                            />
+
+                            <ng-template #suffixTemplate>
+                                <i
+                                    nz-icon
+                                    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"
+                                    style="cursor: pointer;"
+                                ></i>
+                            </ng-template>
+                        </nz-input-group>
+                    </nz-input-group>
+                </div>
+
+                <nz-divider></nz-divider>
+
+                <button nz-button nzType="primary" (click)="goTo('review')" style="width: 100%;">
+                    Continue
+                </button>
+                <button nz-button nzType="default" (click)="goTo('management')" style="width: 100%; margin-top: 10px;">
+                    Go Back
+                </button>
+            </div>
+
+            <!-- Review -->
+            <div *ngIf="currentStep === 'review'">
+                <h1 style="text-align: center;">Review Configuration</h1>
+                <p class="description">Please review the information you provided.</p>
+
+                <h3>Management API</h3>
+                <p>
+                    Requests for the Management API will be made against the following address:<b>
+                        {{ managementConnection.protocol }}://{{ managementConnection.address
+                        }}{{ managementConnection.port ? ":" + managementConnection.port : "" }}
+                    </b>
+                </p>
+
+                <h3 style="margin-top: 15px;">Metrics API</h3>
+                <p>
+                    Requests for the Metrics API will be made against the following address:
+                    <b
+                        >{{ metricsConnection.protocol }}://{{ metricsConnection.address }}:{{
+                            metricsConnection.port ? ":" + metricsConnection.port : ""
+                        }}</b
+                    >
+                </p>
+
+                <nz-divider></nz-divider>
+
+                <button nz-button nzType="primary" (click)="validateConnection()" style="width: 100%;">
+                    Test Connection
+                </button>
+                <button nz-button nzType="default" (click)="goTo('metrics')" style="width: 100%; margin-top: 10px;">
+                    Go Back
+                </button>
+            </div>
+        </ng-container>
+    </form>
+</div>

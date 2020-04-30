@@ -1,0 +1,19 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Labs</b>
+        <button nz-button (click)="openCreateLabDrawer()" nzSize="small" nzType="primary" style="margin-left: 20px;">
+            Create New Lab
+        </button>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- Main content -->
+<div class="labs">
+    <ng-container *ngFor="let lab of labs">
+        <app-lab-preview [lab]="lab" (delete)="getLabs()"></app-lab-preview>
+    </ng-container>
+</div>

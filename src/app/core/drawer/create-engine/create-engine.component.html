@@ -1,0 +1,65 @@
+<div>
+    <div *ngIf="createEngineStatus === 'idle' || createEngineStatus === 'error'">
+        <!-- Set Engine name -->
+        <h4>Engine Name</h4>
+        <input nz-input placeholder="Thomas" [(ngModel)]="engineForm.name" />
+
+        <!-- Select Agents to add Engine to -->
+        <h4 style="margin-top: 15px;">Add Engine to Agents</h4>
+        <nz-select nzMode="multiple" nzPlaceHolder="Select Agents" [(ngModel)]="selectedAgents" style="width: 100%">
+            <nz-option *ngFor="let agent of availableAgents" [nzLabel]="agent.name" [nzValue]="agent.id"></nz-option>
+        </nz-select>
+
+        <!-- Select Tags -->
+        <h4 style="margin-top: 15px;">Add Tags to Engine</h4>
+        <nz-select
+            nzMode="multiple"
+            nzPlaceHolder="Select Tags"
+            [nzDropdownRender]="dropdownTemplate"
+            [(ngModel)]="selectedTags"
+            style="width: 100%;"
+        >
+            <nz-option [nzLabel]="tag.name" [nzValue]="tag.id" *ngFor="let tag of availableTags"></nz-option>
+        </nz-select>
+
+        <ng-template #dropdownTemplate>
+            <nz-divider style="margin: 10px 0;"></nz-divider>
+            <button
+                nz-button
+                nzType="default"
+                (click)="createNewTag()"
+                style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+            >
+                Create New Tag
+            </button>
+        </ng-template>
+    </div>
+
+    <nz-divider *ngIf="createEngineStatus === 'idle' || createEngineStatus === 'error'"></nz-divider>
+
+    <div class="buttons">
+        <button
+            nz-button
+            nzType="primary"
+            [nzLoading]="createEngineStatus === 'pending'"
+            [disabled]="createEngineStatus === 'success'"
+            (click)="createEngine()"
+            style="margin-right: 10px;"
+        >
+            Create Engine
+        </button>
+        <button nz-button (click)="close()" [disabled]="createEngineStatus === 'pending'">Cancel</button>
+    </div>
+
+    <!-- Engine Creation Steps -->
+    <div style="margin-top: 20px; margin-left: 10px" *ngIf="createEngineStatus !== 'idle'">
+        <nz-steps [nzCurrent]="createEngineStep" nzDirection="vertical" nzSize="small">
+            <nz-step nzTitle="Create Engine" [nzIcon]="createEngineStep === 0 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add Tags" [nzIcon]="createEngineStep === 1 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add Engine to Agents" [nzIcon]="createEngineStep === 2 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Done" [nzIcon]="createEngineStep === 3 ? 'smile' : null"></nz-step>
+        </nz-steps>
+
+        <span *ngIf="createEngineStatus === 'success'" style="font-style: italic;">Closing in 3 seconds...</span>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Record Files</b>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- Main content -->
+<div class="inner-content">
+    <!-- Search bar -->
+    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <nz-input-group [nzSuffix]="suffixIcon">
+            <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+        </nz-input-group>
+
+        <button
+            nz-button
+            nzType="primary"
+            style="margin-left: 10px;"
+            (click)="openUploadModal({ key: '/', level: 0 }, uploadFooter)"
+        >
+            <i nz-icon nzType="plus"></i> Upload
+        </button>
+    </div>
+
+    <ng-template #suffixIcon>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+
+    <!-- Tree -->
+    <nz-tree
+        [nzData]="management.recordFileTree"
+        (nzDblClick)="openFolder($event)"
+        [nzTreeTemplate]="nzTreeTemplate"
+        [nzSearchValue]="searchValue"
+    ></nz-tree>
+    <ng-template #nzTreeTemplate let-node>
+        <span class="custom-node">
+            <!-- If node is folder -->
+            <span *ngIf="!node.title.includes('.snmprec')" class="branch">
+                <i
+                    nz-icon
+                    nzTheme="fill"
+                    [nzType]="node.isExpanded ? 'folder-open' : 'folder'"
+                    (click)="openFolder(node)"
+                ></i>
+                <span
+                    class="folder-name"
+                    [innerHtml]="getHighlightedString(node.title) + '/'"
+                    (click)="openFolder(node)"
+                ></span>
+                <nz-button-group class="file-controls">
+                    <button nz-button nzSize="small" (click)="openUploadModal(node, uploadFooter)">
+                        <i nz-icon nzType="upload"></i>
+                    </button>
+                </nz-button-group>
+            </span>
+
+            <!-- If node is leaf -->
+            <span *ngIf="node.title.includes('.snmprec')" style="padding-top: 0;" class="leaf">
+                <i nz-icon nzType="file"></i>
+                <span class="file-name" [innerHtml]="getHighlightedString(node.title)"></span>
+                <nz-button-group class="file-controls">
+                    <button nz-button nzSize="small" (click)="previewRecordFile(node)">
+                        <i nz-icon nzType="eye"></i>
+                    </button>
+                    <button nz-button nzSize="small" (click)="downloadRecordFile(node)">
+                        <i nz-icon nzType="download"></i>
+                    </button>
+                    <button nz-button nzSize="small" nzType="danger" nzGhost (click)="deleteRecordFile(node)">
+                        <i nz-icon nzType="delete"></i>
+                    </button>
+                </nz-button-group>
+            </span>
+        </span>
+    </ng-template>
+</div>
+
+<!-- Footer for record file upload modal -->
+<ng-template #uploadFooter>
+    <button nz-button nzType="default" (click)="modalClose()">Cancel</button>
+    <button nz-button nzType="primary" (click)="modalSubmit()" [nzLoading]="uploadModalStatus === 'pending'">
+        Upload File
+    </button>
+</ng-template>

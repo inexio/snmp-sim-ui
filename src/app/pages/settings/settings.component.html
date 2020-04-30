@@ -1,0 +1,30 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        <b>Settings</b>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- Main content -->
+<div class="inner-content">
+    <h2>Appearance</h2>
+
+    <form #form="ngForm">
+        <h3>Theme</h3>
+
+        <nz-input-group nzCompact>
+            <nz-select name="theme" [ngModel]="'light'" style="width: 100px;" nzDisabled>
+                <nz-option nzValue="light" nzLabel="Light"></nz-option>
+                <nz-option nzValue="dark" nzLabel="Dark"></nz-option>
+            </nz-select>
+        </nz-input-group>
+    </form>
+
+    <h2 style="margin-top: 30px;">General</h2>
+
+    <form #form="ngForm">
+        <h3>Update</h3>
+
+        <button nz-button nzType="primary">Check for Update</button>
+    </form>
+</div>

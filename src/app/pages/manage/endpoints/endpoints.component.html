@@ -1,0 +1,26 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Endpoints</b>
+        <button
+            nz-button
+            (click)="openCreateEndpointDrawer()"
+            nzSize="small"
+            nzType="primary"
+            style="margin-left: 20px;"
+        >
+            Create New Endpoint
+        </button>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="endpoints">
+    <app-endpoint-preview
+        *ngFor="let endpoint of endpoints"
+        [endpoint]="endpoint"
+        (delete)="updateEndpoints()"
+    ></app-endpoint-preview>
+</div>

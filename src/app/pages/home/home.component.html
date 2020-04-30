@@ -1,0 +1,18 @@
+<!-- Main content -->
+<div style="margin-top: 64px;">
+    <h1>Quick Access</h1>
+    <div class="quick-access">
+        <div class="card" *ngFor="let card of quickAccess" [routerLink]="card.routerLink">
+            <img alt="" [src]="card.icon" />
+            <h2>{{ card.title }}</h2>
+            <p style="font-size: 12px; margin-bottom: 0;">{{ card.category }}</p>
+        </div>
+    </div>
+
+    <!-- <h1 style="margin-top: 30px;">Overview</h1>
+    <div class="overview">
+        <nz-statistic [nzValue]="2 | number" nzTitle="Running Labs"></nz-statistic>
+        <nz-statistic [nzValue]="35 | number" nzTitle="Total Agents"></nz-statistic>
+        <nz-statistic [nzValue]="194911 | number" nzTitle="Packets/s"></nz-statistic>
+    </div> -->
+</div>

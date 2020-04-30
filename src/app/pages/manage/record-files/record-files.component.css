@@ -1,0 +1,63 @@
+:host ::ng-deep .ant-tree {
+    overflow: hidden;
+    margin: 0 -24px;
+    padding: 0 24px;
+}
+
+:host ::ng-deep .ant-tree li {
+    padding: 10px 0 0 5px;
+}
+
+:host ::ng-deep .ant-tree li span.ant-tree-switcher .ant-tree-switcher-icon {
+    margin-top: 5px;
+}
+
+.custom-node {
+    cursor: pointer;
+    line-height: 24px;
+    margin-left: 4px;
+    display: inline-block;
+    margin: 0 -1000px;
+    padding: 0 1000px;
+}
+
+.active {
+    background: #1890ff;
+    color: #fff;
+}
+
+.file-name,
+.folder-name {
+    margin-left: 10px;
+    font-family: monospace;
+}
+
+.file-controls {
+    margin-left: 10px;
+}
+
+.branch,
+.leaf {
+    -webkit-user-select: none;
+}
+
+.branch > nz-button-group,
+.leaf > nz-button-group {
+    opacity: 0;
+    transition: all 0.25s ease;
+}
+
+.branch:hover > nz-button-group,
+.leaf:hover > nz-button-group {
+    opacity: 1;
+}
+
+div.add-file {
+    margin-left: 29px;
+    margin-top: 10px;
+    font-family: monospace;
+}
+
+div.add-file > span > span {
+    margin-left: 10px;
+}

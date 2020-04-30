@@ -1,0 +1,45 @@
+<div>
+    <div>
+        <p>Select Users to add to Engine "{{ engine.name }}"</p>
+
+        <!-- Select Users -->
+        <h4>Users to Add</h4>
+        <nz-select
+            nzMode="multiple"
+            nzPlaceHolder="Select Users"
+            [(ngModel)]="selectedUsers"
+            [nzDropdownRender]="dropdownTemplate"
+            style="width: 100%"
+        >
+            <nz-option *ngFor="let user of availableUsers" [nzLabel]="user.name" [nzValue]="user.id"></nz-option>
+        </nz-select>
+
+        <ng-template #dropdownTemplate>
+            <nz-divider style="margin: 10px 0;"></nz-divider>
+            <button
+                nz-button
+                nzType="default"
+                (click)="createNewUser()"
+                style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+            >
+                Create New User
+            </button>
+        </ng-template>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div class="buttons">
+        <button
+            nz-button
+            nzType="primary"
+            [nzLoading]="addUsersStatus === 'pending'"
+            [disabled]="addUsersStatus === 'success'"
+            (click)="addUsers()"
+            style="margin-right: 10px;"
+        >
+            Add Users
+        </button>
+        <button nz-button (click)="close()" [disabled]="addUsersStatus === 'pending'">Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+div.agents {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+div.agents > * {
+    width: 400px;
+    margin-right: 20px;
+}

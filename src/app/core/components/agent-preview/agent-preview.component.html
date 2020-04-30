@@ -1,0 +1,91 @@
+<div class="agent" [ngClass]="{ expanded: expanded }">
+    <nz-card [nzActions]="[actionTag, actionDelete]">
+        <!-- Title and power icon -->
+        <nz-card-meta style="cursor: pointer;"></nz-card-meta>
+
+        <!-- Card title line, including first tag -->
+        <div class="title">
+            <div>
+                <h3 (click)="expandAgent()">{{ agent ? agent.name : agentPreview.name }}</h3>
+            </div>
+            <nz-tag
+                *ngIf="agent && agent.tags.length > 0"
+                style="margin: 0 0 0 10px;"
+                [nzTooltipTitle]="agent.tags[0].meta ? agent.tags[0].meta.description : ''"
+                [nzColor]="agent.tags[0].meta ? agent.tags[0].meta.color : 'blue'"
+                nz-tooltip
+            >
+                {{ agent.tags[0].name }}
+            </nz-tag>
+        </div>
+
+        <!-- Show loading skeleton while full agent data is pending -->
+        <nz-skeleton [nzActive]="true" *ngIf="agentRequestStatus === 'pending'"></nz-skeleton>
+
+        <!-- Details -->
+        <div class="body" *ngIf="agent && agentRequestStatus !== 'pending'">
+            <p *ngIf="agent.tags.length > 1">
+                Tags:
+                <nz-tag
+                    *ngFor="let tag of agent.tags"
+                    style="margin: 0 0 0 10px;"
+                    [nzTooltipTitle]="tag.meta ? tag.meta.description : ''"
+                    [nzColor]="tag.meta ? tag.meta.color : 'blue'"
+                    nz-tooltip
+                >
+                    {{ tag.name }}
+                </nz-tag>
+            </p>
+
+            <p>
+                Engines:
+                <span *ngIf="!agent.engines || agent.engines.length === 0">None</span>
+
+                <ng-container *ngIf="agent.engines.length < 5; else engineCount">
+                    <span *ngFor="let engine of agent.engines; let last = last">
+                        <a routerLink="/manage/engines">{{ engine.name }}</a>
+                        <span *ngIf="!last">, </span>
+                    </span>
+                </ng-container>
+
+                <ng-template #engineCount>
+                    {{ agent.engines.length }}
+                </ng-template>
+            </p>
+
+            <p>
+                Labs:
+                <ng-container *ngIf="agent.labs.length < 5; else labCount">
+                    <span *ngFor="let lab of agent.labs; let last = last">
+                        <a [routerLink]="'/manage/labs/' + lab.id">{{ lab.name }}</a>
+                        <span *ngIf="!last">, </span>
+                    </span>
+                </ng-container>
+
+                <ng-template #labCount>
+                    {{ agent.labs.length }}
+                </ng-template>
+            </p>
+
+            <p>Data Directory:</p>
+            <div class="code" style="margin-top: 5px;" *ngIf="agent && agentRequestStatus !== 'pending'">
+                <button (click)="copyToClipboard(agent.data_dir)" nz-button nzSize="small" nzType="primary">
+                    <i nz-icon nzType="copy" nzTheme="outline"></i>
+                </button>
+
+                {{ agent.data_dir || "/" }}
+            </div>
+        </div>
+    </nz-card>
+
+    <!-- Actions -->
+    <ng-template #actionTag>
+        <i nz-icon nzType="tag" (click)="openEditTagsDrawer()"></i>
+    </ng-template>
+    <ng-template #actionDownload>
+        <i nz-icon nzType="download"></i>
+    </ng-template>
+    <ng-template #actionDelete>
+        <i nz-icon nzType="delete" (click)="deleteAgent()"></i>
+    </ng-template>
+</div>

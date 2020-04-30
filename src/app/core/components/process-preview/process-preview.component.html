@@ -1,0 +1,22 @@
+<div class="process">
+    <nz-card>
+        <!-- Card title line, including first tag -->
+        <div class="title">
+            <h3 (click)="router.navigate(['/metrics/consoles/' + process.id])">Process {{ process.id }}</h3>
+        </div>
+
+        <!-- Details -->
+        <div class="body">
+            <p>Last Update: {{ process.last_update }}</p>
+            <p>Update Interval: {{ process.update_interval }} seconds</p>
+
+            <p style="margin-top: 10px;">
+                Supervisor: {{ process.supervisor.hostname }} (ID {{ process.supervisor.id }})
+            </p>
+            <p>Files: {{ process.files }}</p>
+
+            <p style="margin-top: 10px;">CPU: {{ process.cpu }}</p>
+            <p>Memory: {{ process.memory }}</p>
+        </div>
+    </nz-card>
+</div>

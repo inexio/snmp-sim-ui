@@ -1,0 +1,50 @@
+div.agent {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 3px;
+}
+
+div.agent.expanded > nz-card {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+div.agent div.title {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+div.agent div.title > div {
+    width: 100%;
+    overflow: hidden;
+}
+
+div.agent div.title > div > h3 {
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+div.body {
+    margin-left: 0;
+    margin-top: 8px;
+}
+
+div.body > p {
+    margin: 0;
+}
+
+div.code {
+    position: relative;
+}
+
+div.code > button {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}

@@ -1,0 +1,49 @@
+<div>
+    <div>
+        <p>Select Engines to add to Agent "{{ agent.name }}"</p>
+
+        <!-- Set Agent name -->
+        <h4>Engines to Add</h4>
+        <nz-select
+            nzMode="multiple"
+            nzPlaceHolder="Select Engines"
+            [(ngModel)]="selectedEngines"
+            [nzDropdownRender]="dropdownTemplate"
+            style="width: 100%"
+        >
+            <nz-option
+                *ngFor="let engine of availableEngines"
+                [nzLabel]="engine.name"
+                [nzValue]="engine.id"
+            ></nz-option>
+        </nz-select>
+
+        <ng-template #dropdownTemplate>
+            <nz-divider style="margin: 10px 0;"></nz-divider>
+            <button
+                nz-button
+                nzType="default"
+                (click)="createNewEngine()"
+                style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+            >
+                Create New Engine
+            </button>
+        </ng-template>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div class="buttons">
+        <button
+            nz-button
+            nzType="primary"
+            [nzLoading]="addEnginesStatus === 'pending'"
+            [disabled]="addEnginesStatus === 'success'"
+            (click)="addEngines()"
+            style="margin-right: 10px;"
+        >
+            Add Engines
+        </button>
+        <button nz-button (click)="close()" [disabled]="addEnginesStatus === 'pending'">Cancel</button>
+    </div>
+</div>

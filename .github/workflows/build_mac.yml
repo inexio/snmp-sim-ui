@@ -1,0 +1,36 @@
+name: Build (Mac)
+
+on: [push]
+
+jobs:
+    build:
+        runs-on: macos-latest
+
+        strategy:
+            matrix:
+                node-version: [10.x, 12.x]
+
+        steps:
+            - uses: actions/checkout@v1
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install typescript
+              run: npm install -g typescript
+
+            - name: Install tslint
+              run: npm install -g tslint
+
+            - name: Install @angular/cli
+              run: npm install -g @angular/cli
+
+            - name: Install other dependencies
+              run: npm install
+
+            - name: Start building for Windows
+              run: npm run build:mac
+
+              env:
+                  CI: true

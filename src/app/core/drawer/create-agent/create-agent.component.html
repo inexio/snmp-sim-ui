@@ -1,0 +1,78 @@
+<div>
+    <div *ngIf="createAgentStatus === 'idle' || createAgentStatus === 'error'">
+        <!-- Set Agent name -->
+        <h4>Agent Name</h4>
+        <input nz-input placeholder="Agent 47" [(ngModel)]="agentForm.name" />
+
+        <!-- Enter data directory for Agent -->
+        <h4 style="margin-top: 15px;">Agent Data Directory</h4>
+        <input nz-input placeholder="example-folder/" [(ngModel)]="agentForm.data_dir" />
+
+        <!-- Select labs to add agent to -->
+        <h4 style="margin-top: 15px;">Add Agent to Labs</h4>
+        <nz-select nzMode="multiple" nzPlaceHolder="Select Labs" [(ngModel)]="selectedLabs" style="width: 100%">
+            <nz-option *ngFor="let lab of availableLabs" [nzLabel]="lab.name" [nzValue]="lab.id"></nz-option>
+        </nz-select>
+
+        <!-- Select Tags -->
+        <h4 style="margin-top: 15px;">Add Tags to Agent</h4>
+        <nz-select
+            nzMode="multiple"
+            nzPlaceHolder="Select Tags"
+            [nzDropdownRender]="dropdownTemplate"
+            [(ngModel)]="selectedTags"
+            style="width: 100%;"
+        >
+            <nz-option [nzLabel]="tag.name" [nzValue]="tag.id" *ngFor="let tag of availableTags"> </nz-option>
+
+            <!-- <nz-option nzCustomContent [nzLabel]="tag.name" [nzValue]="tag.id" *ngFor="let tag of availableTags">
+                <nz-tag
+                    [nzTooltipTitle]="tag.meta ? tag.meta.description : ''"
+                    [nzColor]="tag.meta ? tag.meta.color : 'blue'"
+                    nz-tooltip
+                >
+                    {{ tag.name }}
+                </nz-tag>
+            </nz-option> -->
+        </nz-select>
+
+        <ng-template #dropdownTemplate>
+            <nz-divider style="margin: 10px 0;"></nz-divider>
+            <button
+                nz-button
+                nzType="default"
+                (click)="createNewTag()"
+                style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+            >
+                Create New Tag
+            </button>
+        </ng-template>
+    </div>
+
+    <nz-divider *ngIf="createAgentStatus === 'idle' || createAgentStatus === 'error'"></nz-divider>
+
+    <div class="buttons">
+        <button
+            nz-button
+            nzType="primary"
+            [nzLoading]="createAgentStatus === 'pending'"
+            [disabled]="createAgentStatus === 'success'"
+            (click)="createAgent()"
+        >
+            Create Agent
+        </button>
+        <button nz-button (click)="close()" [disabled]="createAgentStatus === 'pending'">Cancel</button>
+    </div>
+
+    <!-- Agent Creation Steps -->
+    <div style="margin-top: 20px; margin-left: 10px" *ngIf="createAgentStatus !== 'idle'">
+        <nz-steps [nzCurrent]="createAgentStep" nzDirection="vertical" nzSize="small">
+            <nz-step nzTitle="Create Agent" [nzIcon]="createAgentStep === 0 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add Tags" [nzIcon]="createAgentStep === 1 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add Agent to Labs" [nzIcon]="createAgentStep === 2 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Done" [nzIcon]="createAgentStep === 3 ? 'smile' : null"></nz-step>
+        </nz-steps>
+
+        <span *ngIf="createAgentStatus === 'success'" style="font-style: italic;">Closing in 3 seconds...</span>
+    </div>
+</div>

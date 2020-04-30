@@ -1,0 +1,72 @@
+<div class="endpoint">
+    <nz-card [nzActions]="[actionTag, actionDelete]">
+        <!-- Title and power icon -->
+        <nz-card-meta style="cursor: pointer;"></nz-card-meta>
+
+        <!-- Card title line, including first tag -->
+        <div class="title">
+            <div>
+                <h3>{{ endpoint.name }}</h3>
+            </div>
+            <nz-tag
+                *ngIf="endpoint.tags.length > 0"
+                style="margin: 0 0 0 10px;"
+                [nzTooltipTitle]="endpoint.tags[0].meta ? endpoint.tags[0].meta.description : ''"
+                [nzColor]="endpoint.tags[0].meta ? endpoint.tags[0].meta.color : 'blue'"
+                nz-tooltip
+            >
+                {{ endpoint.tags[0].name }}
+            </nz-tag>
+        </div>
+
+        <!-- Show loading skeleton while endpoint request is pending -->
+        <nz-skeleton [nzActive]="true" *ngIf="endpointRequestStatus === 'pending'"></nz-skeleton>
+
+        <!-- Details -->
+        <div class="body" *ngIf="endpointRequestStatus === 'success'">
+            <p *ngIf="endpoint.tags.length > 1">
+                Tags:
+                <nz-tag
+                    *ngFor="let tag of endpoint.tags"
+                    style="margin: 0 0 0 10px;"
+                    [nzTooltipTitle]="tag.meta ? tag.meta.description : ''"
+                    [nzColor]="tag.meta ? tag.meta.color : 'blue'"
+                    nz-tooltip
+                >
+                    {{ tag.name }}
+                </nz-tag>
+            </p>
+
+            <p *ngIf="endpoint.engines">
+                Part of:
+                <ng-container *ngIf="endpoint.engines.length < 5; else engineCount">
+                    <span *ngFor="let engine of endpoint.engines; let last = last">
+                        <a routerLink="/manage/engines">{{ engine.name }}</a>
+                        <span *ngIf="!last">, </span>
+                    </span>
+                </ng-container>
+
+                <ng-template #engineCount> {{ endpoint.engines.length }} Engines </ng-template>
+            </p>
+
+            <p>Protocol: {{ endpoint.protocol }}</p>
+
+            <p>Address:</p>
+            <div class="code" style="margin-top: 5px;">
+                <button (click)="copyToClipboard(endpoint.address)" nz-button nzSize="small" nzType="primary">
+                    <i nz-icon nzType="copy" nzTheme="outline"></i>
+                </button>
+
+                {{ endpoint.address }}
+            </div>
+        </div>
+    </nz-card>
+
+    <!-- Actions -->
+    <ng-template #actionTag>
+        <i nz-icon nzType="tag" (click)="openEditTagsDrawer()"></i>
+    </ng-template>
+    <ng-template #actionDelete>
+        <i nz-icon nzType="delete" (click)="deleteEndpoint()"></i>
+    </ng-template>
+</div>

@@ -1,0 +1,33 @@
+div.tracks {
+    height: calc(100% - 150px);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+div.tracks > div.track-wrapper {
+    width: 33%;
+    max-width: 33%;
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.tracks > div.track-wrapper > .track-title > nz-divider {
+    margin: 15px 0;
+}
+
+div.tracks > div.track-wrapper > .track-title > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.tracks > div.track-wrapper > .track-title > div > h2 {
+    margin: 0;
+}
+
+div.tracks > div.track-wrapper > div.track {
+    overflow-y: scroll;
+}

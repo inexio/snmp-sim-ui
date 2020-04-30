@@ -1,0 +1,72 @@
+<div class="lab">
+    <nz-card [nzActions]="[actionTags, actionPower, actionRestart, actionDelete]">
+        <!-- Card title line, including first tag -->
+        <div class="title">
+            <div>
+                <h3 style="cursor: pointer;" (click)="router.navigate(['/manage/labs/' + lab.id])">
+                    <nz-badge
+                        [nzStatus]="lab.power === 'on' ? 'success' : 'error'"
+                        class="power-icon"
+                        [nzTooltipTitle]="'Lab is powered ' + lab.power"
+                        nzTooltipPlacement="top"
+                        nz-tooltip
+                    ></nz-badge>
+
+                    {{ lab.name }}
+                </h3>
+            </div>
+            <nz-tag
+                *ngIf="lab.tags.length > 0"
+                style="margin: 0 0 0 10px;"
+                [nzTooltipTitle]="lab.tags[0].meta ? lab.tags[0].meta.description : ''"
+                [nzColor]="lab.tags[0].meta ? lab.tags[0].meta.color : 'blue'"
+                nz-tooltip
+            >
+                {{ lab.tags[0].name }}
+            </nz-tag>
+        </div>
+
+        <!-- Details -->
+        <div class="body">
+            <p *ngIf="lab.tags.length > 1">
+                Tags:
+                <nz-tag
+                    *ngFor="let tag of lab.tags"
+                    style="margin: 0 0 0 10px;"
+                    [nzTooltipTitle]="tag.meta ? tag.meta.description : ''"
+                    [nzColor]="tag.meta ? tag.meta.color : 'blue'"
+                    nz-tooltip
+                >
+                    {{ tag.name }}
+                </nz-tag>
+            </p>
+            <p>Uptime: 2 hours</p>
+            <p>Agents: {{ lab.agents.length }}</p>
+            <p>Metrics:</p>
+        </div>
+
+        <!-- Metrics chart -->
+        <div style="margin-top: 20px;">
+            <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [xaxis]="chartOptions.xaxis"
+                [yaxis]="chartOptions.yaxis"
+            ></apx-chart>
+        </div>
+    </nz-card>
+
+    <!-- Actions -->
+    <ng-template #actionTags>
+        <i nz-icon nzType="tag" (click)="editTags()"></i>
+    </ng-template>
+    <ng-template #actionPower>
+        <i nz-icon [nzType]="labPowerRequest === 'pending' ? 'loading' : 'poweroff'" (click)="switchPower()"></i>
+    </ng-template>
+    <ng-template #actionRestart>
+        <i nz-icon [nzType]="labRestartRequest === 'pending' ? 'loading' : 'sync'" (click)="restartLab()"></i>
+    </ng-template>
+    <ng-template #actionDelete>
+        <i nz-icon nzType="delete" (click)="deleteLab()"></i>
+    </ng-template>
+</div>

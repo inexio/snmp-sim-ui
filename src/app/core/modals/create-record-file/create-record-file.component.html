@@ -1,0 +1,18 @@
+<nz-alert nzType="info" [nzDescription]="hint" style="margin-bottom: 20px;"> </nz-alert>
+
+<h4>File Path</h4>
+<input nz-input placeholder="Upload Path" [(ngModel)]="path" style="margin-bottom: 20px;" />
+
+<h4>File</h4>
+<nz-upload nzType="drag" [nzBeforeUpload]="selectFile" [nzFileList]="file ? [file] : []" [nzFilter]="filters">
+    <p class="ant-upload-text">Click or drag file to this area to upload</p>
+    <p class="ant-upload-hint">
+        Files may only end with .snmprec
+    </p>
+</nz-upload>
+
+<ng-template #hint>
+    You can also create folders and folder structures by including them in the upload path! For example:<br />
+    <span class="code">/<b>example</b>/file.snmprec</span> or<br />
+    <span class="code">/existing-folder/<b>new-folder</b>/file.snmprec</span>
+</ng-template>

@@ -1,0 +1,44 @@
+div.lab {
+    width: 400px;
+}
+
+div.lab div.title {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+div.lab div.title > div {
+    width: 100%;
+    overflow: hidden;
+}
+
+div.lab div.title > div > h3 {
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+}
+
+nz-badge.power-icon {
+    margin-top: 9px;
+    margin-right: 3px;
+}
+
+div.body {
+    margin-left: 20px;
+    margin-top: 8px;
+}
+
+div.body > p {
+    margin: 0;
+}
+
+div.tags {
+    margin: 5px 0 10px 20px;
+}
+
+img {
+    max-width: 100%;
+}

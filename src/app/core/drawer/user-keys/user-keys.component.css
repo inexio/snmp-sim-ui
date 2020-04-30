@@ -1,0 +1,9 @@
+div.code {
+    position: relative;
+}
+
+div.code > button {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}

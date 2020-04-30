@@ -1,0 +1,79 @@
+<div class="engine" [ngClass]="{ expanded: expanded }">
+    <nz-card [nzActions]="[actionTag, actionDelete]">
+        <!-- Title and power icon -->
+        <nz-card-meta style="cursor: pointer;"></nz-card-meta>
+
+        <!-- Card title line, including first tag -->
+        <div class="title">
+            <div>
+                <h3 (click)="expandEngine()">{{ engine.name }}</h3>
+            </div>
+            <nz-tag
+                *ngIf="engine && engine.tags.length > 0"
+                style="margin: 0 0 0 10px;"
+                [nzTooltipTitle]="engine.tags[0].meta ? engine.tags[0].meta.description : ''"
+                [nzColor]="engine.tags[0].meta ? engine.tags[0].meta.color : 'blue'"
+                nz-tooltip
+            >
+                {{ engine.tags[0].name }}
+            </nz-tag>
+        </div>
+
+        <!-- Show loading skeleton while engine request is pending -->
+        <nz-skeleton [nzActive]="true" *ngIf="engineRequestStatus === 'pending'"></nz-skeleton>
+
+        <!-- Details -->
+        <div class="body" *ngIf="engineRequestStatus === 'success'">
+            <p *ngIf="engine.tags.length > 1">
+                Tags:
+                <nz-tag
+                    *ngFor="let tag of engine.tags"
+                    style="margin: 0 0 0 10px;"
+                    [nzTooltipTitle]="tag.meta ? tag.meta.description : ''"
+                    [nzColor]="tag.meta ? tag.meta.color : 'blue'"
+                    nz-tooltip
+                >
+                    {{ tag.name }}
+                </nz-tag>
+            </p>
+            <p>
+                Endpoints:
+                <span *ngIf="!engine.endpoints || engine.endpoints.length === 0">None</span>
+
+                <ng-container *ngIf="engine.endpoints.length < 5; else endpointCount">
+                    <span *ngFor="let endpoint of engine.endpoints; let last = last">
+                        <a routerLink="/manage/endpoints">{{ endpoint.name }}</a>
+                        <span *ngIf="!last">, </span>
+                    </span>
+                </ng-container>
+
+                <ng-template #endpointCount>
+                    {{ engine.endpoints.length }}
+                </ng-template>
+            </p>
+            <p>
+                Users:
+
+                <span *ngIf="!engine.users || engine.users.length === 0">None</span>
+                <ng-container *ngIf="engine.users.length < 5; else userCount">
+                    <span *ngFor="let user of engine.users; let last = last">
+                        <a routerLink="/manage/users">{{ user.name }}</a>
+                        <span *ngIf="!last">, </span>
+                    </span>
+                </ng-container>
+
+                <ng-template #userCount>
+                    {{ engine.users.length }}
+                </ng-template>
+            </p>
+        </div>
+    </nz-card>
+
+    <!-- Actions -->
+    <ng-template #actionTag>
+        <i nz-icon nzType="tag" (click)="openEditTagsDrawer()"></i>
+    </ng-template>
+    <ng-template #actionDelete>
+        <i nz-icon nzType="delete" (click)="deleteEngine()"></i>
+    </ng-template>
+</div>

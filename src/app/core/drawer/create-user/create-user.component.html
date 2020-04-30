@@ -1,0 +1,105 @@
+<div>
+    <div *ngIf="createUserStatus === 'idle' || createUserStatus === 'error'">
+        <!-- Set User -->
+        <h4>User</h4>
+        <input nz-input placeholder="User" [(ngModel)]="userForm.user" />
+
+        <!-- Set Name -->
+        <h4 style="margin-top: 15px;">Name</h4>
+        <input nz-input placeholder="Name" [(ngModel)]="userForm.name" />
+
+        <!-- Priv Protocol -->
+        <h4 style="margin-top: 15px;">Priv. Protocol</h4>
+        <nz-select [(ngModel)]="userForm.priv_proto" style="width: 100%;">
+            <nz-option
+                [nzValue]="protocol"
+                [nzLabel]="protocol"
+                *ngFor="let protocol of availablePrivProtocols"
+            ></nz-option>
+        </nz-select>
+
+        <!-- Priv Key -->
+        <ng-container *ngIf="userForm.priv_proto !== 'NONE'">
+            <h4 style="margin-top: 15px;">Priv. Key</h4>
+            <textarea rows="4" nz-input [(ngModel)]="userForm.priv_key" style="width: 100%;"></textarea>
+        </ng-container>
+
+        <!-- Auth Protocol -->
+        <h4 style="margin-top: 15px;">Auth. Protocol</h4>
+        <nz-select [(ngModel)]="userForm.auth_proto" style="width: 100%;">
+            <nz-option
+                [nzValue]="protocol"
+                [nzLabel]="protocol"
+                *ngFor="let protocol of availablePrivProtocols"
+            ></nz-option>
+        </nz-select>
+
+        <!-- Auth Key -->
+        <ng-container *ngIf="userForm.auth_proto !== 'NONE'">
+            <h4 style="margin-top: 15px;">Auth. Key</h4>
+            <textarea rows="4" nz-input [(ngModel)]="userForm.auth_key" style="width: 100%;"></textarea>
+        </ng-container>
+
+        <!-- Select Engines to add User to -->
+        <h4 style="margin-top: 15px;">Add User to Engines</h4>
+        <nz-select nzMode="multiple" nzPlaceHolder="Select Engines" [(ngModel)]="selectedEngines" style="width: 100%">
+            <nz-option
+                *ngFor="let engine of availableEngines"
+                [nzLabel]="engine.name"
+                [nzValue]="engine.id"
+            ></nz-option>
+        </nz-select>
+
+        <!-- Select Tags -->
+        <h4 style="margin-top: 15px;">Add Tags to User</h4>
+        <nz-select
+            nzMode="multiple"
+            nzPlaceHolder="Select Tags"
+            [nzDropdownRender]="dropdownTemplate"
+            [(ngModel)]="selectedTags"
+            style="width: 100%;"
+        >
+            <nz-option [nzLabel]="tag.name" [nzValue]="tag.id" *ngFor="let tag of availableTags"></nz-option>
+        </nz-select>
+
+        <ng-template #dropdownTemplate>
+            <nz-divider style="margin: 10px 0;"></nz-divider>
+            <button
+                nz-button
+                nzType="default"
+                (click)="createNewTag()"
+                style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+            >
+                Create New Tag
+            </button>
+        </ng-template>
+    </div>
+
+    <nz-divider *ngIf="createUserStatus === 'idle' || createUserStatus === 'error'"></nz-divider>
+
+    <div class="buttons">
+        <button
+            nz-button
+            nzType="primary"
+            [nzLoading]="createUserStatus === 'pending'"
+            [disabled]="createUserStatus === 'success'"
+            (click)="createUser()"
+            style="margin-right: 10px;"
+        >
+            Create User
+        </button>
+        <button nz-button (click)="close()" [disabled]="createUserStatus === 'pending'">Cancel</button>
+    </div>
+
+    <!-- Engine Creation Steps -->
+    <div style="margin-top: 20px; margin-left: 10px" *ngIf="createUserStatus !== 'idle'">
+        <nz-steps [nzCurrent]="createUserStep" nzDirection="vertical" nzSize="small">
+            <nz-step nzTitle="Create User" [nzIcon]="createUserStep === 0 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add Tags" [nzIcon]="createUserStep === 1 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add User to Engines" [nzIcon]="createUserStep === 2 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Done" [nzIcon]="createUserStep === 3 ? 'smile' : null"></nz-step>
+        </nz-steps>
+
+        <span *ngIf="createUserStatus === 'success'" style="font-style: italic;">Closing in 3 seconds...</span>
+    </div>
+</div>

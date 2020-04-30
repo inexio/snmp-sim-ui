@@ -1,0 +1,26 @@
+div.file-preview {
+    position: relative;
+    padding: 20px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+div.file-preview.light {
+    background-color: #f0f2f5;
+    color: #000000;
+}
+
+div.file-preview.dark {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+div.file-preview > div.buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+div.file-preview > pre {
+    margin-bottom: 0;
+}

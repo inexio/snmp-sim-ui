@@ -1,0 +1,86 @@
+<div class="user">
+    <nz-card [nzActions]="[actionTag, actionKeys, actionDelete]">
+        <!-- Title and power icon -->
+        <nz-card-meta style="cursor: pointer;"></nz-card-meta>
+
+        <!-- Card title line, including first tag -->
+        <div class="title">
+            <div>
+                <h3>{{ user.name }}</h3>
+            </div>
+            <nz-tag
+                *ngIf="user && user.tags.length > 0"
+                style="margin: 0 0 0 10px;"
+                [nzTooltipTitle]="user.tags[0].meta ? user.tags[0].meta.description : ''"
+                [nzColor]="user.tags[0].meta ? user.tags[0].meta.color : 'blue'"
+                nz-tooltip
+            >
+                {{ user.tags[0].name }}
+            </nz-tag>
+        </div>
+
+        <!-- Show loading skeleton while endpoint request is pending -->
+        <nz-skeleton [nzActive]="true" *ngIf="userRequestStatus === 'pending'"></nz-skeleton>
+
+        <!-- Details -->
+        <div class="body" *ngIf="userRequestStatus === 'success'">
+            <p *ngIf="user.tags.length > 1">
+                Tags:
+                <nz-tag
+                    *ngFor="let tag of user.tags"
+                    style="margin: 0 0 0 10px;"
+                    [nzTooltipTitle]="tag.meta ? tag.meta.description : ''"
+                    [nzColor]="tag.meta ? tag.meta.color : 'blue'"
+                    nz-tooltip
+                >
+                    {{ tag.name }}
+                </nz-tag>
+            </p>
+
+            <p *ngIf="user.engines">
+                Part of:
+                <ng-container *ngIf="user.engines.length < 5; else engineCount">
+                    <span *ngFor="let engine of user.engines; let last = last">
+                        <a routerLink="/manage/engines">{{ engine.name }}</a>
+                        <span *ngIf="!last">, </span>
+                    </span>
+                </ng-container>
+
+                <ng-template #engineCount> {{ user.engines.length }} Engines </ng-template>
+            </p>
+
+            <p>Auth Protocol: {{ user.auth_proto === "NONE" ? "None" : user.auth_proto }}</p>
+
+            <p *ngIf="user.auth_key">Auth Key:</p>
+            <div *ngIf="user.auth_key" class="code" style="margin: 5px 0;">
+                <button (click)="copyToClipboard(user.auth_key)" nz-button nzSize="small" nzType="primary">
+                    <i nz-icon nzType="copy" nzTheme="outline"></i>
+                </button>
+
+                {{ user.auth_key }}
+            </div>
+
+            <p>Priv. Protocol: {{ user.priv_proto === "NONE" ? "None" : user.priv_proto }}</p>
+
+            <p *ngIf="user.priv_key">Priv. Key:</p>
+            <div *ngIf="user.priv_key" class="code" style="margin: 5px 0;">
+                <button (click)="copyToClipboard(user.priv_key)" nz-button nzSize="small" nzType="primary">
+                    <i nz-icon nzType="copy" nzTheme="outline"></i>
+                </button>
+
+                {{ user.priv_key }}
+            </div>
+        </div>
+    </nz-card>
+
+    <!-- Actions -->
+    <ng-template #actionTag>
+        <i nz-icon nzType="tag" (click)="openEditTagsDrawer()"></i>
+    </ng-template>
+    <ng-template #actionKeys>
+        <i nz-icon nzType="key" (click)="openKeysDrawer()"></i>
+    </ng-template>
+    <ng-template #actionDelete>
+        <i nz-icon nzType="delete" (click)="deleteUser()"></i>
+    </ng-template>
+</div>

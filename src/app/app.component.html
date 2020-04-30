@@ -1,0 +1,98 @@
+<nz-layout class="sidebar" [ngClass]="core.theme" *ngIf="core.validated; else welcome">
+    <!-- Sidebar -->
+    <nz-sider class="menu-sidebar" nzWidth="256px" nzBreakpoint="xxl" nzCollapsible [(nzCollapsed)]="isCollapsed">
+        <div class="sidebar-content">
+            <!-- Sidebar logo -->
+            <div class="sidebar-logo" [ngStyle]="{ 'margin-top': electron.isElectron ? '35px' : '0' }">
+                <a routerLink="/">
+                    <i nz-icon nzType="experiment" nzTheme="outline"></i>
+
+                    <h1 style="font-size: 25px; font-weight: 300;" *ngIf="!isCollapsed">SNMP Sim</h1>
+                </a>
+            </div>
+
+            <!-- Menu items -->
+            <div class="sidebar-items">
+                <ul nz-menu [nzTheme]="core.theme" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+                    <li nz-menu-item nzMatchRouter nzDisabled>
+                        <i nz-icon nzType="search"></i>
+                        <span>Search</span>
+                    </li>
+                    <li nz-submenu nzTitle="Manage" nzIcon="apartment">
+                        <ul>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/manage/labs">Labs</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/manage/agents">Agents</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/manage/engines">Engines</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/manage/endpoints">Endpoints</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/manage/users">Users</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/manage/record-files">Record Files</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/manage/tags">Tags</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li nz-submenu nzTitle="Metrics" nzIcon="bar-chart">
+                        <ul>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/metrics/processes">Processes</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter>
+                                <a routerLink="/metrics/consoles">Console Outputs</a>
+                            </li>
+                            <li nz-menu-item nzMatchRouter nzDisabled>
+                                <a routerLink="/metrics/packets">Packets</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li nz-menu-item nzMatchRouter routerLink="/settings">
+                        <i nz-icon nzType="setting"></i>
+                        <span>Settings</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nz-sider>
+
+    <!-- Main page container -->
+    <nz-layout class="main-content" [ngStyle]="{ 'margin-left': isCollapsed ? '80px' : '256px' }">
+        <nz-header [ngStyle]="{ width: isCollapsed ? 'calc(100% - 80px)' : 'calc(100% - 256px)' }">
+            <div class="app-header" style="-webkit-app-region: drag">
+                <nz-input-group [nzSuffix]="suffixIconSearch" style="width: 50%;">
+                    <input type="text" nz-input placeholder="Search" nzSize="large" disabled />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+
+                <!-- Other controls -->
+                <div class="buttons" style="display: flex; align-items: center;">
+                    <button nz-button nzType="danger" (click)="openExitModal()" style="margin-left: 15px;">
+                        <i nz-icon nzType="logout"></i>
+                    </button>
+                </div>
+            </div>
+        </nz-header>
+
+        <!-- Main page content -->
+        <nz-content>
+            <router-outlet></router-outlet>
+        </nz-content>
+    </nz-layout>
+</nz-layout>
+
+<!-- Welcome page -->
+<ng-template #welcome>
+    <app-welcome></app-welcome>
+</ng-template>

@@ -1,0 +1,66 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Tags</b>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- Main content -->
+<div>
+    <nz-collapse [nzBordered]="false" style="background: transparent; background-color: transparent;">
+        <nz-collapse-panel
+            #p
+            *ngFor="let panel of panels; let i = index"
+            [nzHeader]="collapseHeader"
+            [nzActive]="panel.active"
+            [ngStyle]="panel.customStyle"
+            [nzExpandedIcon]="expandedIcon"
+        >
+            <!-- Tag body -->
+            <div class="body">
+                <p class="description">"{{ panel.tag.meta.description }}"</p>
+
+                <p>Tag-ID: {{ panel.tag.id }}</p>
+                <p>Creation date: 04-03-2020 (2 days ago)</p>
+                <p>
+                    Used by: {{ panel.tag.labs.length }} Labs, {{ panel.tag.agents.length }} Agents,
+                    {{ panel.tag.engines.length }} Engines, {{ panel.tag.endpoints.length }} Endpoints,
+                    {{ panel.tag.users.length }} Users
+                </p>
+
+                <div style="margin-top: 15px">
+                    <nz-select [(ngModel)]="tags[i].meta.color" nzPlaceHolder="Tag Color" style="width: 200px;">
+                        <nz-option *ngFor="let color of tagColors" [nzValue]="color" [nzLabel]="color"></nz-option>
+                    </nz-select>
+
+                    <nz-tag [nzColor]="tags[i].meta.color" style="margin-left: 10px;">{{ panel.tag.name }}</nz-tag>
+                </div>
+
+                <div style="margin-top: 15px">
+                    <button nz-button nzType="danger" (click)="deleteTag(panel.tag.id)">Delete Tag</button>
+                </div>
+            </div>
+
+            <!-- Expanded icon -->
+            <ng-template #expandedIcon let-active>
+                {{ active }}
+                <i nz-icon nzType="caret-right" class="ant-collapse-arrow" [nzRotate]="p.nzActive ? 90 : -90"></i>
+            </ng-template>
+
+            <!-- Header -->
+            <ng-template #collapseHeader>
+                <div class="collapse-header">
+                    <p>{{ panel.tag.name }}</p>
+                    <nz-tag [nzColor]="tags[i].meta.color">{{ panel.tag.name }}</nz-tag>
+                </div>
+            </ng-template>
+        </nz-collapse-panel>
+    </nz-collapse>
+
+    <div class="add" (click)="createNewTag()">
+        <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+    </div>
+</div>

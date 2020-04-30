@@ -1,0 +1,45 @@
+div.quick-access {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+div.quick-access > div.card {
+    width: 150px;
+    padding: 30px 0;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
+    text-align: center;
+    border-radius: 8px;
+    margin: 0 20px 20px 0;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+div.quick-access > div.card:hover {
+    box-shadow: 0px 50px 70px -35px rgba(0, 0, 0, 0.1);
+    transform: scale(1.025);
+}
+
+div.quick-access > div.card > img {
+    width: 50%;
+}
+
+div.quick-access > div.card > h2 {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+div.overview {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+div.overview > * {
+    margin-right: 100px;
+}

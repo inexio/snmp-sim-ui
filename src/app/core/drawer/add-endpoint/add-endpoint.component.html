@@ -1,0 +1,49 @@
+<div>
+    <div>
+        <p>Select Endpoints to add to Engine "{{ engine.name }}"</p>
+
+        <!-- Select Endpoints -->
+        <h4>Endpoints to Add</h4>
+        <nz-select
+            nzMode="multiple"
+            nzPlaceHolder="Select Endpoints"
+            [(ngModel)]="selectedEndpoints"
+            [nzDropdownRender]="dropdownTemplate"
+            style="width: 100%"
+        >
+            <nz-option
+                *ngFor="let endpoint of availableEndpoints"
+                [nzLabel]="endpoint.name"
+                [nzValue]="endpoint.id"
+            ></nz-option>
+        </nz-select>
+
+        <ng-template #dropdownTemplate>
+            <nz-divider style="margin: 10px 0;"></nz-divider>
+            <button
+                nz-button
+                nzType="default"
+                (click)="createNewEndpoint()"
+                style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+            >
+                Create New Endpoint
+            </button>
+        </ng-template>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div class="buttons">
+        <button
+            nz-button
+            nzType="primary"
+            [nzLoading]="addEndpointsStatus === 'pending'"
+            [disabled]="addEndpointsStatus === 'success'"
+            (click)="addEndpoints()"
+            style="margin-right: 10px;"
+        >
+            Add Endpoints
+        </button>
+        <button nz-button (click)="close()" [disabled]="addEndpointsStatus === 'pending'">Cancel</button>
+    </div>
+</div>

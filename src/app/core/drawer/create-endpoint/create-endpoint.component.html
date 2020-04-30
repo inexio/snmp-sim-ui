@@ -1,0 +1,83 @@
+<div>
+    <div *ngIf="createEndpointStatus === 'idle' || createEndpointStatus === 'error'">
+        <!-- Set Endpoint name -->
+        <h4>Endpoint Name</h4>
+        <input nz-input placeholder="Endpoint Name" [(ngModel)]="endpointForm.name" />
+
+        <!-- Set Endpoint Address -->
+        <h4 style="margin-top: 15px;">Endpoint Address</h4>
+        <input nz-input placeholder="127.0.0.1:1337" [(ngModel)]="endpointForm.address" />
+
+        <!-- Select Engine Protocol -->
+        <h4 style="margin-top: 15px;">Endpoint Protocol</h4>
+        <nz-select [(ngModel)]="endpointForm.protocol" style="width: 100%;">
+            <nz-option
+                [nzValue]="protocol"
+                [nzLabel]="protocol"
+                *ngFor="let protocol of availableProtocols"
+            ></nz-option>
+        </nz-select>
+
+        <!-- Select Engines to add Endpoint to -->
+        <h4 style="margin-top: 15px;">Add Endpoint to Engines</h4>
+        <nz-select nzMode="multiple" nzPlaceHolder="Select Engines" [(ngModel)]="selectedEngines" style="width: 100%">
+            <nz-option
+                *ngFor="let engine of availableEngines"
+                [nzLabel]="engine.name"
+                [nzValue]="engine.id"
+            ></nz-option>
+        </nz-select>
+
+        <!-- Select Tags -->
+        <h4 style="margin-top: 15px;">Add Tags to Endpoint</h4>
+        <nz-select
+            nzMode="multiple"
+            nzPlaceHolder="Select Tags"
+            [nzDropdownRender]="dropdownTemplate"
+            [(ngModel)]="selectedTags"
+            style="width: 100%;"
+        >
+            <nz-option [nzLabel]="tag.name" [nzValue]="tag.id" *ngFor="let tag of availableTags"></nz-option>
+        </nz-select>
+
+        <ng-template #dropdownTemplate>
+            <nz-divider style="margin: 10px 0;"></nz-divider>
+            <button
+                nz-button
+                nzType="default"
+                (click)="createNewTag()"
+                style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+            >
+                Create New Tag
+            </button>
+        </ng-template>
+    </div>
+
+    <nz-divider *ngIf="createEndpointStatus === 'idle' || createEndpointStatus === 'error'"></nz-divider>
+
+    <div class="buttons">
+        <button
+            nz-button
+            nzType="primary"
+            [nzLoading]="createEndpointStatus === 'pending'"
+            [disabled]="createEndpointStatus === 'success'"
+            (click)="createEndpoint()"
+            style="margin-right: 10px;"
+        >
+            Create Endpoint
+        </button>
+        <button nz-button (click)="close()" [disabled]="createEndpointStatus === 'pending'">Cancel</button>
+    </div>
+
+    <!-- Engine Creation Steps -->
+    <div style="margin-top: 20px; margin-left: 10px" *ngIf="createEndpointStatus !== 'idle'">
+        <nz-steps [nzCurrent]="createEndpointStep" nzDirection="vertical" nzSize="small">
+            <nz-step nzTitle="Create Endpoint" [nzIcon]="createEndpointStep === 0 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add Tags" [nzIcon]="createEndpointStep === 1 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Add Endpoint to Engines" [nzIcon]="createEndpointStep === 2 ? 'loading' : null"></nz-step>
+            <nz-step nzTitle="Done" [nzIcon]="createEndpointStep === 3 ? 'smile' : null"></nz-step>
+        </nz-steps>
+
+        <span *ngIf="createEndpointStatus === 'success'" style="font-style: italic;">Closing in 3 seconds...</span>
+    </div>
+</div>

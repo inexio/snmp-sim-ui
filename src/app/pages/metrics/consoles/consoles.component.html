@@ -1,0 +1,23 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Metrics
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        Consoles
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>{{ processId }}</b>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<p *ngIf="lastUpdate">
+    Last Update: <b>{{ lastUpdate.format("LTS") }}</b> ({{ lastUpdate.fromNow() }}) -
+    <span (click)="getPages()" style="cursor: pointer;">Refresh</span>
+</p>
+
+<div class="console" #console>
+    <pre *ngFor="let page of consolePages">
+        {{ page }}
+    </pre>
+</div>

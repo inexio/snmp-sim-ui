@@ -1,0 +1,38 @@
+<div>
+    <p>
+        You are currently editing the Tags for <b>{{ targetName }}</b> ({{ type }}). You can click on Tags to add or
+        remove them.
+    </p>
+
+    <!-- Select Tags -->
+    <h4 style="margin-top: 15px;">Choose Tags</h4>
+    <nz-select
+        nzMode="multiple"
+        nzPlaceHolder="Select Tags"
+        [nzDropdownRender]="dropdownTemplate"
+        [(ngModel)]="selectedTags"
+        style="width: 100%;"
+    >
+        <nz-option [nzLabel]="tag.name" [nzValue]="tag.id" *ngFor="let tag of availableTags"> </nz-option>
+    </nz-select>
+
+    <ng-template #dropdownTemplate>
+        <nz-divider style="margin: 10px 0;"></nz-divider>
+        <button
+            nz-button
+            nzType="default"
+            (click)="createNewTag()"
+            style="width: calc(100% - 20px); margin: 0 10px 10px 10px"
+        >
+            Create New Tag
+        </button>
+    </ng-template>
+
+    <nz-divider></nz-divider>
+
+    <div class="buttons">
+        <button nz-button nzType="primary" (click)="updateTags()" [nzLoading]="updateTagsStatus === 'pending'">
+            Done
+        </button>
+    </div>
+</div>

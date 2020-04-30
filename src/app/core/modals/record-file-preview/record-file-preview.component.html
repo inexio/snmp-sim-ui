@@ -1,0 +1,17 @@
+<h4>{{ name }}</h4>
+
+<div class="file-preview" [ngClass]="{ light: core.codeTheme === 'light', dark: core.codeTheme === 'dark' }">
+    <div class="buttons">
+        <button (click)="downloadFile()" nz-button nzSize="small" nzType="primary" style="margin-right: 10px">
+            <i nz-icon nzType="download" nzTheme="outline"></i>
+        </button>
+        <button (click)="copyContentToClipboard()" nz-button nzSize="small" nzType="primary" style="margin-right: 10px">
+            <i nz-icon nzType="copy" nzTheme="outline"></i>
+        </button>
+        <button (click)="core.changeCodeTheme()" nz-button nzSize="small" nzType="default">
+            <i nz-icon nzType="bulb" nzTheme="outline"></i>
+        </button>
+    </div>
+
+    <pre>{{ content }}</pre>
+</div>

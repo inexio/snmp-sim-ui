@@ -1,0 +1,259 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        Labs
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item *ngIf="lab">
+        <b>{{ lab.name }}</b>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- Main content -->
+<div class="tracks" *ngIf="lab">
+    <!-- Agents Track -->
+    <div class="track-wrapper">
+        <div class="track-title">
+            <div>
+                <h2>
+                    Agents <span *ngIf="lab.agents.length > 1">({{ lab.agents.length }} total)</span>
+                </h2>
+
+                <button nz-button nzType="primary" nzSize="small" nz-popover [nzPopoverContent]="addAgentContent">
+                    <i nz-icon nzType="plus"></i>
+                </button>
+
+                <ng-template #addAgentContent>
+                    <button nz-button nzType="primary" (click)="openCreateAgentDrawer()" style="width: 100%;">
+                        Create new Agent</button
+                    ><br />
+                    <button
+                        nz-button
+                        nzType="primary"
+                        (click)="openAddAgentDrawer()"
+                        style="width: 100%; margin-top: 10px;"
+                    >
+                        Add existing Agent
+                    </button>
+                </ng-template>
+            </div>
+
+            <nz-divider></nz-divider>
+
+            <!-- Hint -->
+            <!-- <nz-alert
+                nzType="info"
+                nzMessage="Protip: Click on the name of an Agent to show its Engines!"
+                nzShowIcon
+                nzCloseable
+                style="margin-bottom: 15px;"
+                *ngIf="lab.agents.length > 0 && !expandedAgent"
+            ></nz-alert> -->
+        </div>
+
+        <div class="track">
+            <nz-empty
+                *ngIf="lab.agents.length === 0"
+                nzNotFoundContent="This Lab does not contain any Agents"
+                style="margin: 75px 0;"
+                [nzNotFoundFooter]="emptyAgentsFooter"
+            ></nz-empty>
+            <ng-template #emptyAgentsFooter>
+                <button nz-button nzType="primary" (click)="openCreateAgentDrawer()">
+                    Create new Agent
+                </button>
+                <button nz-button nzType="default" (click)="openAddAgentDrawer()" style="margin-left: 10px;">
+                    Add Existing Agent
+                </button>
+            </ng-template>
+
+            <ng-container *ngFor="let agent of lab.agents">
+                <app-agent-preview
+                    [agentPreview]="agent"
+                    [expanded]="expandedAgent === agent"
+                    (expand)="expandAgent(agent)"
+                    (delete)="getLab()"
+                ></app-agent-preview>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- Engines Track -->
+    <div class="track-wrapper">
+        <div class="track-title" *ngIf="expandedAgent">
+            <div>
+                <h2>
+                    Engines for "{{ expandedAgent.name }}"
+                    <span *ngIf="expandedAgent.engines.length > 1">({{ expandedAgent.engines.length }} total)</span>
+                </h2>
+
+                <button nz-button nzType="primary" nzSize="small" nz-popover [nzPopoverContent]="addEngineContent">
+                    <i nz-icon nzType="plus"></i>
+                </button>
+
+                <ng-template #addEngineContent>
+                    <button nz-button nzType="primary" (click)="openCreateEngineDrawer()" style="width: 100%;">
+                        Create new Engine</button
+                    ><br />
+                    <button
+                        nz-button
+                        nzType="primary"
+                        (click)="openAddEngineDrawer()"
+                        style="width: 100%; margin-top: 10px;"
+                    >
+                        Add existing Engine
+                    </button>
+                </ng-template>
+            </div>
+
+            <nz-divider></nz-divider>
+        </div>
+
+        <div class="track">
+            <!-- Empty Engines message -->
+            <nz-empty
+                *ngIf="expandedAgent && expandedAgent.engines.length === 0"
+                nzNotFoundContent="This Agent does not contain any Engines"
+                style="margin: 75px 0;"
+                [nzNotFoundFooter]="emptyEnginesFooter"
+            ></nz-empty>
+            <ng-template #emptyEnginesFooter>
+                <button nz-button nzType="primary" (click)="openCreateEngineDrawer()">
+                    Create new Engine
+                </button>
+                <button nz-button nzType="default" (click)="openAddEngineDrawer()" style="margin-left: 10px;">
+                    Add Existing Engine
+                </button>
+            </ng-template>
+
+            <!-- Engines List -->
+            <ng-container *ngIf="expandedAgent">
+                <ng-container *ngFor="let engine of expandedAgent.engines">
+                    <app-engine-preview
+                        [engine]="engine"
+                        [expanded]="expandedEngine === engine"
+                        (expand)="expandEngine(engine)"
+                        (delete)="getLab()"
+                    ></app-engine-preview>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- Endpoints & Users track -->
+    <div class="track-wrapper">
+        <!-- Endpoints -->
+        <div class="track-title" *ngIf="expandedEngine">
+            <div>
+                <h2>
+                    Endpoints for "{{ expandedEngine.name }}"
+                    <span *ngIf="expandedEngine.endpoints.length > 1">
+                        ({{ expandedEngine.endpoints.length }} total)
+                    </span>
+                </h2>
+
+                <button nz-button nzType="primary" nzSize="small" nz-popover [nzPopoverContent]="addEndpointContent">
+                    <i nz-icon nzType="plus"></i>
+                </button>
+
+                <ng-template #addEndpointContent>
+                    <button nz-button nzType="primary" (click)="openCreateEndpointDrawer()" style="width: 100%;">
+                        Create new Endpoint</button
+                    ><br />
+                    <button
+                        nz-button
+                        nzType="primary"
+                        (click)="openAddEndpointDrawer()"
+                        style="width: 100%; margin-top: 10px;"
+                    >
+                        Add existing Endpoint
+                    </button>
+                </ng-template>
+            </div>
+
+            <nz-divider></nz-divider>
+        </div>
+
+        <div class="track">
+            <!-- Empty Endpoints message -->
+            <nz-empty
+                *ngIf="expandedEngine && expandedEngine.endpoints.length === 0"
+                nzNotFoundContent="This Engine does not contain any Endpoints"
+                style="margin: 75px 0;"
+                [nzNotFoundFooter]="emptyEndpointsFooters"
+            ></nz-empty>
+            <ng-template #emptyEndpointsFooters>
+                <button nz-button nzType="primary" (click)="openCreateEndpointDrawer()">
+                    Create new Endpoint
+                </button>
+                <button nz-button nzType="default" (click)="openAddEndpointDrawer()" style="margin-left: 10px;">
+                    Add Existing Endpoint
+                </button>
+            </ng-template>
+
+            <!-- Endpoints list -->
+            <ng-container *ngIf="expandedEngine">
+                <ng-container *ngFor="let endpoint of expandedEngine.endpoints">
+                    <app-endpoint-preview [endpoint]="endpoint"></app-endpoint-preview>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <!-- Users -->
+        <div class="track-title" *ngIf="expandedEngine" style="margin-top: 20px;">
+            <div>
+                <h2>
+                    Users for "{{ expandedEngine.name }}"
+                    <span *ngIf="expandedEngine.users.length > 1">({{ expandedEngine.users.length }} total)</span>
+                </h2>
+
+                <button nz-button nzType="primary" nzSize="small" nz-popover [nzPopoverContent]="addUserContent">
+                    <i nz-icon nzType="plus"></i>
+                </button>
+
+                <ng-template #addUserContent>
+                    <button nz-button nzType="primary" (click)="openCreateUserDrawer()" style="width: 100%;">
+                        Create new User</button
+                    ><br />
+                    <button
+                        nz-button
+                        nzType="primary"
+                        (click)="openAddUserDrawer()"
+                        style="width: 100%; margin-top: 10px;"
+                    >
+                        Add existing User
+                    </button>
+                </ng-template>
+            </div>
+
+            <nz-divider></nz-divider>
+        </div>
+
+        <div class="track">
+            <!-- Empty Users message -->
+            <nz-empty
+                *ngIf="expandedEngine && expandedEngine.users.length === 0"
+                nzNotFoundContent="This Engine does not contain any Users"
+                style="margin: 75px 0;"
+                [nzNotFoundFooter]="emptyUsersList"
+            ></nz-empty>
+            <ng-template #emptyUsersList>
+                <button nz-button nzType="primary" (click)="openCreateUserDrawer()">
+                    Create new User
+                </button>
+                <button nz-button nzType="default" (click)="openAddUserDrawer()" style="margin-left: 10px;">
+                    Add Existing User
+                </button>
+            </ng-template>
+
+            <!-- Users list -->
+            <ng-container *ngIf="expandedEngine">
+                <ng-container *ngFor="let user of expandedEngine.users">
+                    <app-user-preview [user]="user"></app-user-preview>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>

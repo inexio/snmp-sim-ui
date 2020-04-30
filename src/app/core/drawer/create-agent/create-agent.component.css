@@ -1,0 +1,13 @@
+nz-tag {
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+nz-tag.add-tag {
+    background-color: #ffffff;
+    border-style: dashed;
+}
+
+div.buttons > button {
+    margin-right: 10px;
+}

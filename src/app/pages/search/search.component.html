@@ -1,0 +1,8 @@
+<div class="search">
+    <nz-input-group nzSize="large" [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="Search..." [(ngModel)]="query" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+</div>

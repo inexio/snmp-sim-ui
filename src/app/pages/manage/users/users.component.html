@@ -1,0 +1,16 @@
+<!-- Breadcrumbs -->
+<nz-breadcrumb>
+    <nz-breadcrumb-item>
+        Manage
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <b>Users</b>
+        <button nz-button (click)="openCreateUserDrawer()" nzSize="small" nzType="primary" style="margin-left: 20px;">
+            Create New User
+        </button>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="users">
+    <app-user-preview *ngFor="let user of users" [user]="user" (delete)="updateUsers()"></app-user-preview>
+</div>

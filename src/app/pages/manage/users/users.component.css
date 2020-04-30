@@ -1,0 +1,11 @@
+div.users {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+div.users > * {
+    width: 400px;
+    margin-right: 20px;
+}
