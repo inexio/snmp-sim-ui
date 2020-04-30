@@ -32,6 +32,7 @@ accessible through the browsers or if you want to run it as a local app on your 
 
 <details>
     <summary>Installation Guide</summary>
+    <br>
     <ul>
         <li>
             First things first, you need to have a Web Server such as Nginx or Apache installed already (Express works too, as long as its set up to serve static files).
@@ -52,6 +53,7 @@ accessible through the browsers or if you want to run it as a local app on your 
 
 <details>
     <summary>Installation Guide</summary>
+    <br>
     <ul>
         <li>
             First, go to the <a href="https://github.com/inexio/snmp-sim-ui/releases/latest">latest release</a> and click on "Assets". There you can download the latest version for your operating system.
@@ -69,21 +71,18 @@ accessible through the browsers or if you want to run it as a local app on your 
 
 <details>
     <summary>Initial Setup Guide</summary>
+    <br>
     <ul>
         <li>
             When opening the App for the first time (or after signing out), you will be prompted to do a first time setup:
             <img src="https://i.imgur.com/j9v7Ds0.png">
         </li>
         <li>
-            After clicking on "Get Started", you will be taken to the second page where you are prompted to enter the details for the Management Endpoint of the SNMP Sim Rest API:
+            After clicking on "Get Started", you will be taken to the second page where you are prompted to enter the details for the Management Endpoint of the SNMP Sim Rest API. You need to provide the Address and the Port on which the Management API is listening on. Optionally, you can also specify Authentication details, if you set any up on your web server.
             <img src="https://i.imgur.com/Xt8J7eW.png">
         </li>
         <li>
-            You need to provide the Address and the Port on which the Management API is listening on. Optionally, you can also specify Authentication details, if you set any up on your web server.
-            <img src="https://i.imgur.com/Xt8J7eW.png">
-        </li>
-        <li>
-            Next step is the same for the Metrics API. You again have to specify the Address and the Port on which the Metrics API is listening. Most of the information will be prefilled from the previous step.
+            The next step is the same for the Metrics API. You again have to specify the Address and the Port on which the Metrics API is listening. Most of the information will be prefilled from the previous step.
             <img src="https://i.imgur.com/EU12gBD.png">
         </li>
         <li>
