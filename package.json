@@ -1,6 +1,6 @@
 {
     "name": "snmp-simulator",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Management client for the SNMP Simulator",
     "homepage": "https://github.com/inexio/snmp-sim-ui",
     "author": {
