@@ -3,9 +3,7 @@
 <p align="center">
     <a><img src="https://github.com/inexio/snmp-sim-ui/workflows/Build (Mac)/badge.svg"></a>
     <a><img src="https://github.com/inexio/snmp-sim-ui/workflows/Build (Win)/badge.svg"></a>
-</p>
-
-<p align="center">
+    <br>
     <a><img src="https://img.shields.io/github/v/release/inexio/snmp-sim-ui?include_prereleases"></a>
     <a><img src="https://img.shields.io/github/downloads/inexio/snmp-sim-ui/total?color=brightgreen"></a>
     <a><img src="https://img.shields.io/github/issues/inexio/snmp-sim-ui"></a>
@@ -34,51 +32,93 @@ accessible through the browsers or if you want to run it as a local app on your 
 
 <details>
     <summary>Installation Guide</summary>
-    <br>
-    First things first, you need to have a Web Server such as Nginx or Apache installed already (Express works too, as long as its set up to serve static files).
-    <br><br>
-    The second step is to go to the <a href="https://github.com/inexio/snmp-sim-ui/releases/latest">latest release</a> and download the <a href="https://github.com/inexio/snmp-sim-ui/releases/latest">SNMP.Simulator-X.X.X-Web.zip</a>-file which includes all the files needed for the deployment of the Web App.
-    <br><br>
-    Last but not least, extract the files contents and upload them onto your web server.
-    <br><br>
-    <b>IMPORTANT:</b> Please note, that the prebuild Web App can only run in the root directory of the web server so the final address looks like `localhost:3000` or `snmp.example.com` and NOT like `localhost:3000/web` or `snmp.example.com/web`
-    <br><br>
-    🎉 You should now be able to go to your configured domain (or the IP Address) of your web server and get started.
-    <br><br>
+    <ul>
+        <li>
+            First things first, you need to have a Web Server such as Nginx or Apache installed already (Express works too, as long as its set up to serve static files).
+        </li>
+        <li>
+            The second step is to go to the <a href="https://github.com/inexio/snmp-sim-ui/releases/latest">latest release</a> and download the <a href="https://github.com/inexio/snmp-sim-ui/releases/latest">SNMP.Simulator-X.X.X-Web.zip</a>-file which includes all the files needed for the deployment of the Web App.
+        </li>
+        <li>
+            Last but not least, extract the files contents and upload them onto your web server. Please note, that the prebuild Web App can only run in the root directory of the web server!
+        </li>
+        <li>
+             That's it! 🎉 You should now be able to go to your configured domain (or the IP Address) of your web server and get started.
+        </li>
+    </ul>
 </details>
 
 ### Desktop App
 
 <details>
     <summary>Installation Guide</summary>
-    <br>
-    First, go to the <a href="https://github.com/inexio/snmp-sim-ui/releases/latest">latest release</a> and click on "Assets".
-    There you can download the latest version for your operating system.
-    <br><br>
-    This will download an installer which lets you choose where to install the SNMP Sim UI and also where future updates will be installed.
-    <br><br>
-    🎉 Done installing? You should now be able to open the App and continue with the initial setup!
-    <br><br>
+    <ul>
+        <li>
+            First, go to the <a href="https://github.com/inexio/snmp-sim-ui/releases/latest">latest release</a> and click on "Assets". There you can download the latest version for your operating system.
+        </li>
+        <li>
+            This will download an installer which lets you choose where to install the SNMP Sim UI and also where future updates will be installed.
+        </li>
+        <li>
+            That's it! 🎉 You should now be able to open the App and continue with the initial setup!
+        </li>
+    </ul>
 </details>
 
 ## Initial Setup
 
-When opening the App for the first time (or after signing out), you will be prompted to do a first time setup:
-![](https://i.imgur.com/j9v7Ds0.png)
+<details>
+    <summary>Initial Setup Guide</summary>
+    <ul>
+        <li>
+            When opening the App for the first time (or after signing out), you will be prompted to do a first time setup:
+            <img src="https://i.imgur.com/j9v7Ds0.png">
+        </li>
+        <li>
+            After clicking on "Get Started", you will be taken to the second page where you are prompted to enter the details for the Management Endpoint of the SNMP Sim Rest API:
+            <img src="https://i.imgur.com/Xt8J7eW.png">
+        </li>
+        <li>
+            You need to provide the Address and the Port on which the Management API is listening on. Optionally, you can also specify Authentication details, if you set any up on your web server.
+            <img src="https://i.imgur.com/Xt8J7eW.png">
+        </li>
+        <li>
+            Next step is the same for the Metrics API. You again have to specify the Address and the Port on which the Metrics API is listening. Most of the information will be prefilled from the previous step.
+            <img src="https://i.imgur.com/EU12gBD.png">
+        </li>
+        <li>
+            In the last step of the initial setup process, you can review your configuration and then start a validation reqeust against the Management and Metrics Endpoints. Once successful, you will be redirected to the welcome page of the SNMP Sim UI.<br><br>
+            All of your entered information will be stored until you log out using the red "log out" button in the top right corner. If you log out though, you will have to go through the setup again.
+            <img src="https://i.imgur.com/PFJKbFV.png">
+        </li>
+    </ul>
+</details>
 
-After clicking on "Get Started", you will be taken to the second page where you are prompted to enter the details for the
-Management Endpoint of the SNMP Sim Rest API.
+## Run or Build from Source
 
-You need to provide the Address and the Port on which the Management API is listening on. Optionally, you can also specify Authentication details, if you set any up on your web server.
-![](https://i.imgur.com/Xt8J7eW.png)
+You can of course also run and build the app from source!
 
-Next step is the same for the Metrics API. You again have to specify the Address and the Port on which the Metrics API is listening. Most of the information will be prefilled from the previous step.
-![](https://i.imgur.com/EU12gBD.png)
+First, clone this repository and install its dependencies
 
-In the last step of the initial setup process, you can review your configuration and then start a validation reqeust against the Management and Metrics Endpoints. Once successful, you will be redirected to the welcome page of the SNMP Sim UI.
+```sh
+$ git clone git@github.com:inexio/snmp-sim-ui.git
+$ cd snmp-sim-ui/
+$ npm install
+```
 
-All of your entered information will be stored until you log out using the red "log out" button in the top right corner. If you log out though, you will have to go through the setup again.
-![](https://i.imgur.com/PFJKbFV.png)
+After that's done, you can run the following npm package scripts to run or build the app:
+
+```sh
+# Run the App in development mode
+$ npm run serve:web       # Run the Web App with hot reloading
+$ npm run serve:desktop   # Run the Desktop App with hot reloading
+
+# Build the App for production
+$ npm run build:web       # Build the Web App
+$ npm run build:mac       # Build the Desktop App for Mac
+$ npm run build:win       # Build the Desktop App for Windows
+$ npm run build:linux     # Build the Desktop App for Linux
+```
 
 ## Authors
 
