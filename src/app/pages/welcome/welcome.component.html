@@ -225,9 +225,8 @@
                 <p>
                     Requests for the Metrics API will be made against the following address:
                     <b
-                        >{{ metricsConnection.protocol }}://{{ metricsConnection.address }}:{{
-                            metricsConnection.port ? ":" + metricsConnection.port : ""
-                        }}</b
+                        >{{ metricsConnection.protocol }}://{{ metricsConnection.address
+                        }}{{ metricsConnection.port ? ":" + metricsConnection.port : "" }}</b
                     >
                 </p>
 
