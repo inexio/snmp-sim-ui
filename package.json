@@ -20,7 +20,7 @@
         "angular:serve": "ng serve --base-href '/' -c web",
         "build:web": "tsc -p tsconfig-serve.json && ng build --base-href '/' -c production",
         "build:mac": "tsc -p tsconfig-serve.json && ng build --base-href '.' -c production && electron-builder build --mac",
-        "build:windown": "tsc -p tsconfig-serve.json && ng build --base-href '.' -c production && electron-builder build --windows",
+        "build:windows": "tsc -p tsconfig-serve.json && ng build --base-href '.' -c production && electron-builder build --windows",
         "build:linux": "tsc -p tsconfig-serve.json && ng build --base-href '.' -c production && electron-builder build --linux",
         "serve:web": "ng serve --base-href '/' -c web -o",
         "serve:desktop": "npm-run-all -p electron:serve angular:serve"
